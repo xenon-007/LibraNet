@@ -1,14 +1,10 @@
-Here’s a polished **GitHub README.md** draft for your LibraNet project 👇
-
----
-
 # 📚 LibraNet – Smart Library Management System
 
 LibraNet is a **Streamlit-based library management system** that supports **books, audiobooks, magazines, and newspapers**, with features like user registration, borrowing/returning, fine calculation, subscription management, and audiobook previews.
 
 The system is designed to provide a **modern digital library experience** with payment tracking, automatic fine calculation, and audiobook expiry handling.
 
----
+
 
 ## ✨ Features
 
@@ -139,6 +135,5 @@ LibraNet/
 * 🌐 Multi-user deployment on cloud servers.
 * 📈 Admin analytics dashboard (borrow trends, popular items).
 
----
 
 Would you like me to also generate a **requirements.txt** file for your repo (so users don’t have to install manually)?
