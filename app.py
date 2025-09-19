@@ -1,6 +1,3 @@
-# app.py
-# LibraNet Streamlit app with fines, audiobook fees, previews, big catalog
-
 import streamlit as st
 import json, os, random, base64
 from datetime import datetime, timedelta
@@ -13,9 +10,6 @@ AUDIOBOOK_FEE_PER_DAY = 50
 MIN_BORROW_DAYS = 1
 MAX_BORROW_DAYS = 7
 
-# ----------------------------
-# Helpers
-# ----------------------------
 def now_iso(): return datetime.now().isoformat()
 def from_iso(dt): return datetime.fromisoformat(dt) if dt else None
 
@@ -37,9 +31,6 @@ def generate_id(existing,digits=6):
         val=random.randint(10**(digits-1),10**digits-1)
         if val not in existing: return val
 
-# ----------------------------
-# Library Manager
-# ----------------------------
 class LibraryManager:
     def __init__(self):
         raw = load_data()
@@ -143,12 +134,9 @@ class LibraryManager:
         b64=self.items[iid].get("preview_b64")
         return base64.b64decode(b64) if b64 else make_dummy_mp3_bytes()
 
-# ----------------------------
-# Seed big catalog
-# ----------------------------
 def seed(lm:LibraryManager):
     if lm.items: return
-    # 100 books (10 base × 10 volumes)
+
     base_books=[("Pride and Prejudice","Jane Austen"),("Moby-Dick","Herman Melville"),
            ("War and Peace","Leo Tolstoy"),("The Great Gatsby","F. Scott Fitzgerald"),
            ("Crime and Punishment","Fyodor Dostoevsky"),("The Hobbit","J.R.R. Tolkien"),
@@ -158,19 +146,16 @@ def seed(lm:LibraryManager):
         for t,a in base_books:
             lm.add_item(f"{t} Vol.{i}",a,"Book")
 
-    # 3 audiobooks
+
     audios=[("Becoming (Audiobook)","Michelle Obama","becoming.mp3"),
             ("The Alchemist (Audiobook)","Paulo Coelho","alchemist.mp3"),
             ("Sapiens (Audiobook)","Yuval Noah Harari","sapiens.mp3")]
     for t,a,f in audios: lm.add_item(t,a,"Audiobook",preview=load_mp3_preview(f))
 
-    # 5 magazines/newspapers
     for m in ["National Geographic","Forbes","Time","The Hindu","The New York Times"]:
         lm.add_item(m,"Various","Magazine")
 
-# ----------------------------
-# Streamlit UI
-# ----------------------------
+
 def main():
     st.set_page_config(page_title="LibraNet",page_icon="📚")
     st.title("📚 LibraNet")
